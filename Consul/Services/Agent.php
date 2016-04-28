@@ -55,7 +55,7 @@ class Agent
     public function registerCheck($check)
     {
         $params = array(
-            'body' => $check,
+            'body' => (string) $check,
         );
 
         return $this->client->put('/v1/agent/check/register', $params);
@@ -96,7 +96,7 @@ class Agent
     public function registerService($service)
     {
         $params = array(
-            'body' => $service,
+            'body' => (string) $service,
         );
 
         return $this->client->put('/v1/agent/service/register', $params);

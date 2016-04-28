@@ -1,16 +1,23 @@
 {
-    "name": "sensiolabs/consul-php-sdk",
-    "description": "SDK to talk with consul.io API",
+    "name": "stevenscg/consul-php-sdk",
+    "description": "PHP SDK for Consul",
     "license": "MIT",
     "authors": [
         {
             "name": "Grégoire Pineau",
             "email": "lyrixx@lyrixx.info"
+        },
+        {
+            "name": "Chris Stevens",
+            "email": "stevenscg@users.noreply.github.com"
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": ">=4,<6",
+        "guzzlehttp/guzzle": "~6.0",
         "psr/log": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -19,7 +26,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

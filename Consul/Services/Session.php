@@ -17,7 +17,7 @@ class Session
     public function create($body = null, array $options = array())
     {
         $params = array(
-            'body' => $body,
+            'body' => (string) $body,
             'query' => OptionsResolver::resolve($options, array('dc')),
         );
 

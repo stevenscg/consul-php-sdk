@@ -6,7 +6,7 @@ Installation
 
 This library can be installed with composer:
 
-    composer require sensiolabs/consul-php-sdk
+    composer require stevenscg/consul-php-sdk
 
 Usage
 -----
@@ -35,11 +35,16 @@ All services methods follow the same convention:
 
 So if you want to acquire an exclusive lock:
 
+    $kv = $sf->get('kv');
+    $session = $sf->get('session');
+
     // Start a session
-    $sessionId = $session->create()->json()['ID'];
+    $results   = $session->create();
+    $sessionId = json_decode($results->getBody(), true)['ID'];
 
     // Lock a key / value with the current session
-    $lockAcquired = $kv->put('tests/session/a-lock', 'a value', ['acquire' => $sessionId])->json();
+    $results      = $kv->put('tests/session/a-lock', 'a value', ['acquire' => $sessionId]);
+    $lockAcquired = json_decode($results->getBody(), true);
 
     if (false === $lockAcquired) {
         $session->destroy($sessionId);

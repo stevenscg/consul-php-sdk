@@ -25,11 +25,12 @@ class LockHandler
     public function lock()
     {
         // Start a session
-        $session = $this->session->create()->json();
-        $this->sessionId = $session['ID'];
+        $results         = $this->session->create();
+        $this->sessionId = json_decode($results->getBody(), true)['ID'];
 
         // Lock a key / value with the current session
-        $lockAcquired = $this->kv->put($this->key, (string) $this->value, ['acquire' => $this->sessionId])->json();
+        $results      = $this->kv->put($this->key, (string) $this->value, ['acquire' => $this->sessionId]);
+        $lockAcquired = json_decode($results->getBody(), true);
 
         if (false === $lockAcquired) {
             $this->session->destroy($this->sessionId);

@@ -73,3 +73,4 @@ Some utilities
 --------------
 
 * Lock handler: Simple class that implement a distributed lock
+* DNS helper: Implements common service lookups via the Consul DNS.

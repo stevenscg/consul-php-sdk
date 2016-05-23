@@ -38,8 +38,8 @@ class Dns
 
 
     /**
-     * Returns the fully-qualified parser service url
-     * from the DNS managed by consul. The returned
+     * Returns the fully-qualified http/https service
+     * url from the DNS managed by consul. The returned
      * value is load-balanced in real-time and should
      * not be cached.
      *

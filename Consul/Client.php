@@ -20,13 +20,25 @@ class Client
 
     public function __construct(array $options = [], LoggerInterface $logger = null, GuzzleClient $client = null)
     {
-        $options = array_replace([
-            'base_uri' => 'http://127.0.0.1:8500',
-            'headers' => [
-                'User-Agent' => 'Consul-PHP-SDK/1.0',
-                'Content-Type' => 'application/json',
-            ],
-        ], $options);
+        $baseUri = 'http://127.0.0.1:8500';
+
+        if (isset($options['base_uri'])) {
+            $baseUri = $options['base_uri'];
+        } elseif (getenv('CONSUL_HTTP_ADDR') !== false) {
+            $baseUri = getenv('CONSUL_HTTP_ADDR');
+        }
+
+        if (preg_match("/^https?:\/\//", $baseUri) !== 1) {
+            $baseUri = 'http://' . $baseUri;
+            if (getenv('CONSUL_HTTP_SSL') === true) {
+                $baseUri = 'https://' . $baseUri;
+            }
+        }
+
+        $options = array_replace(array(
+            'base_uri' => $baseUri,
+            'http_errors' => false,
+        ), $options);
 
         $this->client = $client ?: new GuzzleClient($options);
         $this->logger = $logger ?: new NullLogger();
